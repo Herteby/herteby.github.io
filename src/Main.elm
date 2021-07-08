@@ -67,7 +67,7 @@ update msg model =
 
         OnUrlRequest (Internal url) ->
             ( model
-            , Nav.pushUrl model.key (Url.toString url)
+            , Nav.load (Url.toString url)
             )
 
         OnUrlRequest (External url) ->
