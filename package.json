@@ -5,7 +5,7 @@
   "main": "docs/index.html",
   "scripts": {
     "start": "parcel serve ./src/index.html",
-    "build": "parcel build ./src/index.html --public-url /gains/"
+    "build": "parcel build ./src/index.html"
   },
   "dependencies": {},
   "devDependencies": {
