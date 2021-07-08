@@ -1,0 +1,26 @@
+{
+  "name": "herteby.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "docs/index.html",
+  "scripts": {
+    "start": "parcel serve ./src/index.html",
+    "build": "parcel build ./src/index.html --public-url /gains/"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@parcel/transformer-elm": "^2.0.0-beta.3.1",
+    "@parcel/transformer-stylus": "^2.0.0-beta.3.1",
+    "elm": "^0.19.1-5",
+    "parcel": "next"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Herteby/herteby.github.io.git"
+  },
+  "author": "Simon Herteby",
+  "bugs": {
+    "url": "https://github.com/Herteby/herteby.github.io/issues"
+  },
+  "homepage": "https://github.com/Herteby/herteby.github.io#readme"
+}
