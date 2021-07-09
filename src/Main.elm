@@ -30,6 +30,7 @@ type alias User =
     , bio : String
     , location : String
     , url : String
+    , blogUrl : String
     }
 
 
@@ -55,18 +56,22 @@ main =
 
 
 init : () -> Url -> Key -> ( Model, Cmd Msg )
-init stored url key =
+init _ _ key =
+    let
+        username =
+            "Herteby"
+    in
     ( { key = key
       , user = Loading
       , repos = Loading
       }
     , Cmd.batch
         [ Http.get
-            { url = "https://api.github.com/users/Herteby"
+            { url = "https://api.github.com/users/" ++ username
             , expect = Http.expectJson (RemoteData.fromResult >> GotUser) userDecoder
             }
         , Http.get
-            { url = "https://api.github.com/users/Herteby/repos?per_page=100"
+            { url = "https://api.github.com/users/" ++ username ++ "/repos?per_page=100"
             , expect = Http.expectJson (RemoteData.fromResult >> GotRepos) (Decode.list repoDecoder)
             }
         ]
@@ -138,7 +143,7 @@ view model =
                                     |> List.map
                                         (\repo ->
                                             divClass "repo"
-                                                [ h3 [ class "repoName" ] [ a [ href ("https://herteby.github.io/" ++ repo.name) ] [ text repo.name ] ]
+                                                [ h3 [ class "repoName" ] [ a [ href ("https://" ++ user.blogUrl ++ "/" ++ repo.name) ] [ text repo.name ] ]
                                                 , case repo.description of
                                                     Just description ->
                                                         div [ class "description" ] [ text description ]
@@ -155,7 +160,7 @@ view model =
                                     |> List.map
                                         (\repo ->
                                             divClass "repo"
-                                                [ h3 [ class "repoName" ] [ a [ href ("https://github.com/herteby/" ++ repo.name) ] [ text repo.name ] ]
+                                                [ h3 [ class "repoName" ] [ a [ href (user.url ++ "/" ++ repo.name) ] [ text repo.name ] ]
                                                 , case repo.description of
                                                     Just description ->
                                                         div [ class "description" ] [ text description ]
@@ -204,12 +209,13 @@ viewError error =
 
 userDecoder : Decoder User
 userDecoder =
-    Decode.map5 User
+    Decode.map6 User
         (Decode.field "name" Decode.string)
         (Decode.field "avatar_url" Decode.string)
         (Decode.field "bio" Decode.string)
         (Decode.field "location" Decode.string)
         (Decode.field "html_url" Decode.string)
+        (Decode.field "blog" Decode.string)
 
 
 repoDecoder : Decoder Repo

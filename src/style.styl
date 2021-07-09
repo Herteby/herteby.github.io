@@ -17,7 +17,6 @@ body
   col(10px)
   height 100%
   margin 60px 30px
-  box-sizing border-box
   font-family sans-serif
   background #eee
   overflow auto
@@ -63,7 +62,12 @@ a
       text-decoration underline
     .description
       color gray
-
+      
+@media (max-width 1000px)
+  .repos .repo
+    col(5px)
+    align-items flex-start
+  
 @keyframes fadein
   from
     opacity 0
